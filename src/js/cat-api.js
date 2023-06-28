@@ -24,10 +24,3 @@ export function  fetchCatByBreed(breedId) {
     }) 
 }
 
-// export function fetchCatByBreed(breedId){
-//     fetch(`${URL_NAME}/images/search?api_key=${API_KEY}&breed_ids=${breedId}`).then(res=>{
-//         if(!res.ok){
-//             throw new Error('Oops! Something went wrong! Try reloading the page!')
-//         }
-// return res.json();
-// })};
