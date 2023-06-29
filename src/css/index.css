@@ -1,5 +1,5 @@
 .cat-info {
-  width: 1000px;
+  width: 1100px;
   height: 100%;
   display: flex;
   margin-right: auto;
@@ -9,7 +9,7 @@ img {
   width: 400px;
 }
 .container-text {
-  width: 400px;
+  width: 500px;
 }
 div.breed-select {
   width: 400;
