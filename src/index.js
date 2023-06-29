@@ -1,35 +1,38 @@
 import axios from 'axios';
-import refs from './js/ref';
 import { fetchCatByBreed } from './js/cat-api';
 import { fetchBreeds } from './js/cat-api';
 import SlimSelect from 'slim-select';
 import '/node_modules/slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
 import '/node_modules/slim-select/dist/slimselect.css';
+const selectEl = document.querySelector('.breed-select');
+const loaderEl = document.querySelector('.loader');
+const errorEl = document.querySelector('.error');
+const catInfo = document.querySelector('.cat-info');
 
-refs.loaderEl.classList.add('invisible');
+loaderEl.classList.add('invisible');
 fetchBreeds()
   .then(data => {
     const option = data.map(({ id, name }) => {
       return `<option value="${id}">${name}</option>`;
     });
-    refs.selectEl.insertAdjacentHTML('beforeend', option);
+    selectEl.insertAdjacentHTML('beforeend', option);
     new SlimSelect({
       select: '#single',
     });
 
-    refs.errorEl.hidden = true;
+    errorEl.hidden = true;
   })
   .catch(() => {
-    refs.errorEl.hidden = true;
+    errorEl.hidden = true;
   });
 
-refs.selectEl.addEventListener('change', chooseCat);
+selectEl.addEventListener('change', chooseCat);
 
 function chooseCat(event) {
-  refs.catInfo.innerHTML = '';
-  refs.loaderEl.classList.remove('invisible');
-  refs.errorEl.hidden = true;
+  catInfo.innerHTML = '';
+  loaderEl.classList.remove('invisible');
+  errorEl.hidden = true;
   event.preventDefault();
   let idCat = event.target.value;
   fetchCatByBreed(idCat)
@@ -41,9 +44,9 @@ function chooseCat(event) {
       <h2>Temperament</h2>
       <p>${data[0].breeds[0].temperament}</p>
       </div>`;
-      refs.catInfo.insertAdjacentHTML('beforeend', marcup);
-      refs.loaderEl.classList.add('invisible');
-      refs.errorEl.hidden = true;
+      catInfo.insertAdjacentHTML('beforeend', marcup);
+      loaderEl.classList.add('invisible');
+      errorEl.hidden = true;
     })
     .catch(() => {
       Notiflix.Notify.failure(
