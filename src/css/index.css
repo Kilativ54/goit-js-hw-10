@@ -1,20 +1,19 @@
 .cat-info {
-  width: 800px;
+  width: 1000px;
   height: 100%;
   display: flex;
-  margin: auto;
+  margin-right: auto;
 }
 img {
   margin: 10px;
   width: 400px;
 }
 .container-text {
-  width: 350px;
+  width: 400px;
 }
 div.breed-select {
-  width: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 400;
+   margin-right: auto;
 }
 .loader {
   margin-left: auto;
