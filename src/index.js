@@ -7,7 +7,7 @@ import '/node_modules/slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
 import '/node_modules/slim-select/dist/slimselect.css';
 
-
+refs.loaderEl.classList.add('invisible');
 fetchBreeds()
   .then(data => {
     const option = data.map(({ id, name }) => {
@@ -17,24 +17,24 @@ fetchBreeds()
     new SlimSelect({
       select: '#single',
     });
-    refs.loaderEl.hidden = true;
+
     refs.errorEl.hidden = true;
   })
   .catch(() => {
-    refs.loaderEl.hidden = true;
     refs.errorEl.hidden = true;
   });
 
 refs.selectEl.addEventListener('change', chooseCat);
 
 function chooseCat(event) {
-    refs.loaderEl.hidden = false;
-    refs.errorEl.hidden = true;
+  refs.catInfo.innerHTML = '';
+  refs.loaderEl.classList.remove('invisible');
+  refs.errorEl.hidden = true;
   event.preventDefault();
   let idCat = event.target.value;
-    fetchCatByBreed(idCat)
+  fetchCatByBreed(idCat)
     .then(data => {
-             let marcup =  `<img src='${data[0].url}' width='500' alt="${data[0].breeds[0].name}">
+      let marcup = `<img src='${data[0].url}' width='500' heigh alt="${data[0].breeds[0].name}">
       <div class="container-text">
           <h2>${data[0].breeds[0].name}</h2>
           <p>${data[0].breeds[0].description}</p>
@@ -42,12 +42,12 @@ function chooseCat(event) {
       <p>${data[0].breeds[0].temperament}</p>
       </div>`;
       refs.catInfo.insertAdjacentHTML('beforeend', marcup);
-      refs.loaderEl.hidden = true;
+      refs.loaderEl.classList.add('invisible');
       refs.errorEl.hidden = true;
-      
-        })
+    })
     .catch(() => {
-        refs.loaderEl.hidden = true;
-        Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!')
-    })}
-
+      Notiflix.Notify.failure(
+        'Oops! Something went wrong! Try reloading the page!'
+      );
+    });
+}
