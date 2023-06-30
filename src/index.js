@@ -17,6 +17,7 @@ fetchBreeds()
       return `<option value="${id}">${name}</option>`;
     });
     selectEl.insertAdjacentHTML('beforeend', option);
+    selectEl.classList.remove('is-hidden')
     new SlimSelect({
       select: '#single',
     });
@@ -24,7 +25,7 @@ fetchBreeds()
     errorEl.hidden = true;
   })
   .catch(() => {
-    errorEl.hidden = true;
+    errorEl.classList.remove('is-hidden')
   });
 
 selectEl.addEventListener('change', chooseCat);
@@ -52,5 +53,6 @@ function chooseCat(event) {
       Notiflix.Notify.failure(
         'Oops! Something went wrong! Try reloading the page!'
       );
+      loaderEl.classList.add('is-hidden')
     });
 }
